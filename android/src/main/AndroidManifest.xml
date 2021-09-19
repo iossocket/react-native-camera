@@ -1,6 +1,21 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.reactnative.camera">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.reactnative.camera">
+
   <uses-permission android:name="android.permission.CAMERA" />
 
   <uses-feature android:name="android.hardware.camera" android:required="false" />
   <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+  <application>
+    <provider
+        android:name="org.reactnative.imagepicker.ImagePickerProvider"
+        android:authorities="${applicationId}.imagepickerprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/imagepicker_provider_paths" />
+    </provider>
+  </application>
 </manifest>

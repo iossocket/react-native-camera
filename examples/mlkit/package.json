@@ -2,12 +2,12 @@
   "name": "mlkit",
   "version": "0.0.1",
   "dependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.2"
+    "react": "16.8.6",
+    "react-native": "0.60.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
+    "@babel/core": "^7.4.5",
+    "@babel/runtime": "^7.4.5",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "0.59.0",

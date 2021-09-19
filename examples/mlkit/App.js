@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Slider } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Slider, NativeModules } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
-import { RNCamera } from 'react-native-camera';
+import { RNCamera, ImagePickerManager } from 'react-native-camera';
 
 const flashModeOrder = {
   off: 'on',
@@ -49,6 +49,27 @@ export default class CameraScreen extends React.Component {
     this.setState({
       type: this.state.type === 'back' ? 'front' : 'back',
     });
+  }
+
+  loadAlbum() {
+    NativeModules.ImagePickerManager.launchImageLibrary(
+      {
+        mediaType: 'photo',
+        videoQuality: 'high',
+        quality: 1,
+        maxWidth: 0,
+        maxHeight: 0,
+        includeBase64: false,
+        cameraType: 'back',
+        selectionLimit: 1,
+        saveToPhotos: false,
+        durationLimit: 0,
+        detectBarcode: true,
+      },
+      (resp) => {
+        console.log("barcodes from album", resp);
+      },
+    )
   }
 
   toggleFlash() {
@@ -209,7 +230,10 @@ export default class CameraScreen extends React.Component {
     this.setState({ textBlocks });
   };
 
-  barcodeRecognized = ({ barcodes }) => this.setState({ barcodes });
+  barcodeRecognized = ({ barcodes }) => {
+    console.log('barcodes', barcodes);
+    this.setState({ barcodes })
+  };
 
   renderBarcodes = () => (
     <View style={styles.facesContainer} pointerEvents="none">
@@ -288,8 +312,8 @@ export default class CameraScreen extends React.Component {
               justifyContent: 'space-around',
             }}
           >
-            <TouchableOpacity style={styles.flipButton} onPress={this.toggleFacing.bind(this)}>
-              <Text style={styles.flipText}> FLIP </Text>
+            <TouchableOpacity style={styles.flipButton} onPress={this.loadAlbum.bind(this)}>
+              <Text style={styles.flipText}> Album </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.flipButton} onPress={this.toggleFlash.bind(this)}>
               <Text style={styles.flipText}> FLASH: {this.state.flash} </Text>
