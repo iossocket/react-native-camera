@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, NativeModules } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
-import { RNCamera } from 'react-native-camera';
+import { RNCamera, launchImageLibrary } from 'react-native-camera';
 
 const flashModeOrder = {
   off: 'on',
@@ -40,7 +40,7 @@ export default class CameraScreen extends React.Component {
   };
 
   loadAlbum() {
-    NativeModules.ImagePickerManager.launchImageLibrary(
+    launchImageLibrary(
       {
         mediaType: 'photo',
         videoQuality: 'high',
